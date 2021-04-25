@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class Orb : MonoBehaviour
@@ -67,5 +69,24 @@ public class Orb : MonoBehaviour
     {
         gameObject.GetComponent<Renderer>().material.SetColor(ShaderColor, Color.white);
 
+    }
+
+    public double CalculateDistance(int x2, int y2)
+    {
+        var pos = transform.position;
+        var x1 = pos.x;
+        var y1 = pos.y;
+        var distance = Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
+        return distance;
+    }
+
+    public double CalculateAngle(int x2, int y2)
+    {        
+        var pos = transform.position;
+        var x1 = pos.x;
+        var y1 = pos.y;
+        var m = (y2 - y1) / (x2 - x1);
+        var angle = Math.Atan(m);
+        return angle;
     }
 }
