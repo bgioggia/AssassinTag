@@ -17,7 +17,24 @@ public class Orb : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update(){
+    void Update()
+    {
+        var assassinPos = _assassin.transform.position;
+        var assassinX = assassinPos.x;
+        var assassinY = assassinPos.y;
+        var distanceToAssassin = CalculateDistance(assassinX, assassinY);
+        var angleToAssassin = CalculateAngle(assassinX, assassinY);
+        
+        var protectorPos = _protector.transform.position;
+        var protectorX = protectorPos.x;
+        var protectorY = protectorPos.y;
+        var distanceToProtector = CalculateDistance(protectorX, protectorY);
+        var angleToProtector = CalculateAngle(protectorX, protectorY);
+
+        Debug.Log(distanceToAssassin);
+        Debug.Log(angleToAssassin);
+        Debug.Log(distanceToProtector);
+        Debug.Log(angleToProtector);
         
     }
 
@@ -71,7 +88,7 @@ public class Orb : MonoBehaviour
 
     }
 
-    public double CalculateDistance(int x2, int y2)
+    public double CalculateDistance(float x2, float y2)
     {
         var pos = transform.position;
         var x1 = pos.x;
@@ -80,7 +97,7 @@ public class Orb : MonoBehaviour
         return distance;
     }
 
-    public double CalculateAngle(int x2, int y2)
+    public double CalculateAngle(float x2, float y2)
     {        
         var pos = transform.position;
         var x1 = pos.x;
