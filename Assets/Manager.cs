@@ -11,8 +11,8 @@ public class Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _cols = 4;
-        _rows = 4;
+        _cols = 8;
+        _rows = 8;
         _orbsList = PlaceOrbs();
         AssignRelationships();
     }

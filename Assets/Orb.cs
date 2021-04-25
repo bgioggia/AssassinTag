@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Orb : MonoBehaviour
 {
@@ -36,12 +37,41 @@ public class Orb : MonoBehaviour
             Debug.Log("DA: " + distanceToAssassin + "\nAA: " + angleToAssassin+ "\nDP: " + distanceToProtector + "\nAP: " + angleToProtector);
             Debug.Log(CheckAngleError(angleToAssassin, angleToProtector));
         }
-
         
-
-
-
-
+        // Protector and Assassin are in a line.
+        if (CheckAngleError(angleToAssassin, angleToProtector))
+        {        
+            // Orb is protected and we don't need to move
+            if (distanceToProtector < distanceToAssassin)
+            {
+                return;
+            }
+            // Our protector is blocked by assassin oh no
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, protectorPos, -0.01f);
+            }
+        }
+        // The protector is closer than the assassin.
+        else if (distanceToProtector < distanceToAssassin)
+        {
+            // The protector is further than 1 unit away.
+            if (distanceToProtector > 1)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, protectorPos, 0.01f);
+            }
+            else
+            {
+                var path = Random.Range(0, 2);
+                transform.RotateAround(protectorPos, Vector3.back, 0.5f);
+            }
+        }
+        /*else if ()
+        {
+            
+        }*/
+        
+        
     }
 
     public void AssignAssassin(GameObject orb)
@@ -106,6 +136,7 @@ public class Orb : MonoBehaviour
     public double CalculateAngle(float x2, float y2)
     {        
         var pos = transform.position;
+        
         var x1 = pos.x;
         var y1 = pos.y;
         var m = (y2 - y1) / (x2 - x1);
