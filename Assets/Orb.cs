@@ -117,6 +117,6 @@ public class Orb : MonoBehaviour
 
     public bool CheckAngleError(double a1, double a2)
     {
-        return Math.Abs(a1 - a2) < 0.1;
+        return Math.Abs(a1 - a2) < 5;
     }
 }
