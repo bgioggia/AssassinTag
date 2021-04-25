@@ -31,11 +31,17 @@ public class Orb : MonoBehaviour
         var distanceToProtector = CalculateDistance(protectorX, protectorY);
         var angleToProtector = CalculateAngle(protectorX, protectorY);
 
-        Debug.Log(distanceToAssassin);
-        Debug.Log(angleToAssassin);
-        Debug.Log(distanceToProtector);
-        Debug.Log(angleToProtector);
+        if (gameObject.GetComponent<Renderer>().material.GetColor(ShaderColor) == Color.blue)
+        {
+            Debug.Log("DA: " + distanceToAssassin + "\nAA: " + angleToAssassin+ "\nDP: " + distanceToProtector + "\nAP: " + angleToProtector);
+            Debug.Log(CheckAngleError(angleToAssassin, angleToProtector));
+        }
+
         
+
+
+
+
     }
 
     public void AssignAssassin(GameObject orb)
@@ -103,7 +109,14 @@ public class Orb : MonoBehaviour
         var x1 = pos.x;
         var y1 = pos.y;
         var m = (y2 - y1) / (x2 - x1);
-        var angle = Math.Atan(m);
+        //var angle = Math.Atan(m) * 180/Math.PI;
+        double angle = (float)((Mathf.Atan2(y2-y1, x2-x1) / Math.PI) * 180f);
+        if(angle < 0) angle += 360f;
         return angle;
+    }
+
+    public bool CheckAngleError(double a1, double a2)
+    {
+        return Math.Abs(a1 - a2) < 0.1;
     }
 }
